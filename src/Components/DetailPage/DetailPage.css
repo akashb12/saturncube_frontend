@@ -1,0 +1,15 @@
+.jumbotron {
+  margin: 50px 50px;
+}
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  width: 30rem;
+  margin: 50px 50px;
+}
+.card-img-top {
+  height: 45vh;
+}
