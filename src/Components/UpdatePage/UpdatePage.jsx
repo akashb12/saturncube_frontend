@@ -12,7 +12,7 @@ import {
 } from "../../features/users/userSlice";
 function UpdatePage(props) {
   const dispatch = useDispatch();
-  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [info, setInfo] = useState({
     firstName: "",
     lastName: "",
@@ -104,12 +104,18 @@ function UpdatePage(props) {
               />
             </div>
             <div className="form-group">
-              <img
-                src={info.profilePic}
-                alt=""
-                className="img-fluid"
-                style={{ height: "100px" }}
-              />
+              {loading ? (
+                <div class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </div>
+              ) : (
+                <img
+                  src={info.profilePic}
+                  alt=""
+                  className="img-fluid"
+                  style={{ height: "100px" }}
+                />
+              )}
             </div>
             <div className="form-group">
               <TextField
@@ -120,9 +126,11 @@ function UpdatePage(props) {
                   const fileList = event.currentTarget.files[0];
                   const formData = new FormData();
                   formData.append("file", fileList);
-                  dispatch(uploadImageSlice(formData)).then((res) =>
-                    setInfo({ ...info, profilePic: res.payload.data })
-                  );
+                  setLoading(true);
+                  dispatch(uploadImageSlice(formData)).then((res) => {
+                    setInfo({ ...info, profilePic: res.payload.data });
+                    setLoading(false);
+                  });
                 }}
                 aria-describedby="nameHelp"
               />

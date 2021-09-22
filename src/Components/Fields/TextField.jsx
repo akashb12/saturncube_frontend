@@ -9,7 +9,7 @@ function TextField({ placeHolder, type, ...props }) {
         type={type}
         placeholder={placeHolder}
         className="form-control  my-3"
-        style={{ paddingTop: "0.8rem" }}
+        style={{ paddingTop: "1.1rem" }}
         {...field}
         {...props}
       />
