@@ -9,9 +9,14 @@ import "./HomePage.css";
 function HomePage() {
   const history = useHistory();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllUsersSlice()).then((res) => setUsers(res.payload.data));
+    setLoading(true);
+    dispatch(getAllUsersSlice()).then((res) => {
+      setLoading(false);
+      setUsers(res.payload.data);
+    });
   }, []);
   return (
     <>
@@ -29,7 +34,11 @@ function HomePage() {
             Logout
           </button>
         </div>
-        {!users.length ? (
+        {loading ? (
+          <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </div>
+        ) : !users.length ? (
           <div>
             <img style={{ height: "300px" }} src="/images/empty.jpg" />
           </div>
