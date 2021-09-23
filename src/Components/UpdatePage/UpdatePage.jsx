@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextField from "../Fields/TextField";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ function UpdatePage(props) {
     dob: "",
     doj: "",
   });
+  const history = useHistory();
   const validate = Yup.object({
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
@@ -68,13 +69,12 @@ function UpdatePage(props) {
           };
           dispatch(updateUserSlice(dataToSubmit)).then((res) => {
             console.log(res);
-            // setInfo({
-            //   name: res.payload.data.name,
-            //   authorName: res.payload.data.author,
-            //   description: res.payload.data.description,
-            // });
+            if (res.payload.data) {
+              history.push("/");
+            } else {
+              alert("something went wrong");
+            }
           });
-          //   resetForm();
         }}>
         {(formik) => (
           <Form className="update-form">

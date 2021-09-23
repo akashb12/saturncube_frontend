@@ -31,7 +31,7 @@ function HomePage() {
         </div>
         {!users.length ? (
           <div>
-            <img style={{ height: "300px" }} src="/empty.jpg" />
+            <img style={{ height: "300px" }} src="/images/empty.jpg" />
           </div>
         ) : (
           <table className="table">
